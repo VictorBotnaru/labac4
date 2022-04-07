@@ -14,10 +14,11 @@ spec:
     spec:
       containers:
         - name: v1ktor
-          image: docker.io/v1ktor05/v1ktor
+          image: v1ktor
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+            
 ---
 
 kind: Service
