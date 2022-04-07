@@ -17,4 +17,5 @@ steps:
   - '[REGION]'
   - '--platform'
   - 'managed'
-
+images:
+- gcr.io/[PROJECT_ID]/[IMAGE]
