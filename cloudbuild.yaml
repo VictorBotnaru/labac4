@@ -19,19 +19,3 @@ steps:
   - 'managed'
 images:
 - gcr.io/[PROJECT_ID]/[IMAGE]
-FROM openjdk:8 as build
-
-COPY .mnv .mnv
-COPY mnvw .
-COPY pom.xml .
-COPY src src
-
-RUN ./mnw -D package
-
-FROM openjdk:8
-
-COPY --from=build target/v1ktor.jar .
-
-EXPOSE 8080
-
-ENTRYPOINT ["java", "-jar", "v1ktor.jar"]
