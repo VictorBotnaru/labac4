@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: v1ktor
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: v1ktor
+  template:
+    metadata:
+      labels:
+        app: v1ktor
+    spec:
+      containers:
+        - name: v1ktor
+          image: docker.io/v1ktor05/v1ktor
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: v1ktor
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      nodePort: 31000
+  selector:
+    app: v1ktor

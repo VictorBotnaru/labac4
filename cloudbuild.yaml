@@ -1,0 +1,21 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo/quickstart-image:tag1', '.' ]
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/quickstart-docker-repo/quickstart-image:v1ktor'
+FROM openjdk:8 as build
+
+COPY .mnv .mnv
+COPY mnvw .
+COPY pom.xml .
+COPY src src
+
+RUN ./mnw -D package
+
+FROM openjdk:8
+
+COPY --from=build target/v1ktor.jar .
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "v1ktor.jar"]
