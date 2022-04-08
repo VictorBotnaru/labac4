@@ -1,6 +1,6 @@
 FROM openjdk:8
 
-COPY --from=build target/v1ktor.jar .
+ADD target/v1ktor.jar v1ktor.jar
 
 EXPOSE 8080
 
